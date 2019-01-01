@@ -1,0 +1,17 @@
+name: nodejs.cr
+version: 0.1.0
+
+authors:
+  - fukaoi 
+
+targets:
+  v8:
+    main: nodejs.cr
+
+crystal: 0.27.0
+
+license: MIT
+
+dependencies:
+  lucky_cli:
+    github: luckyframework/lucky_cli

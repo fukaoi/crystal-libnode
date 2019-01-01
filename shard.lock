@@ -1,0 +1,10 @@
+version: 1.0
+shards:
+  lucky_cli:
+    github: luckyframework/lucky_cli
+    version: 0.12.0
+
+  teeplate:
+    github: mosop/teeplate
+    version: 0.7.0
+

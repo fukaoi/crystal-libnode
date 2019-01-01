@@ -1,0 +1,39 @@
+# Compiled Object files
+*.slo
+*.lo
+*.o
+
+# Compiled Dynamic libraries
+*.so
+*.dylib
+
+# Compiled Static libraries
+*.lai
+*.a*.a
+
+# Build dir
+/lib
+/libnode
+/install
+/bin
+/externals
+
+# IDE project files
+*.sublime-project
+*.sublime-workspace
+.vs/*
+*.vcxproj*
+*.sln
+.vscode
+.idea
+.idea/*
+
+# other
+externals/*
+!externals/.gitkeep
+node_modules/
+package-lock.json
+package.json
+.vscode/
+*.log
+core

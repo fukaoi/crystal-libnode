@@ -1,0 +1,79 @@
+language: cpp
+
+sudo: required
+dist: trusty
+
+os:
+  - linux
+#  - osx
+
+compiler:
+  - gcc
+  - clang
+
+env:
+  global:
+    - CMAKE_OPTIONS="-DOPTION_BUILD_EXAMPLES=On"
+  matrix:
+    - CMAKE_CONFIGURATION=release BUILD_DIR=build
+    - CMAKE_CONFIGURATION=debug BUILD_DIR=build-debug
+
+#matrix:
+#  exclude:
+#  - os: osx
+#    compiler: gcc
+
+cache:
+  directories:
+    - externals/node/out
+  timeout: 1000
+
+addons:
+  apt:
+    sources:
+      - ubuntu-toolchain-r-test
+      - sourceline: 'ppa:beineri/opt-qt591-trusty'
+    packages:
+      - g++-4.9
+      - cmake
+      - cppcheck
+      - clang-tidy-3.8
+      - qt59base
+      - qt59declarative
+      - qt59quickcontrols
+      - qt59quickcontrols2
+
+before_install:
+  - if [ $TRAVIS_OS_NAME == linux ]; then CC=gcc-4.9 && CXX=g++-4.9; fi
+#  - if [ $TRAVIS_OS_NAME == osx ]; then brew update && brew install qt5 cppcheck; fi
+
+before_script:
+  - cd externals
+  - wget https://github.com/hpicgs/node/archive/dev.zip
+  - unzip -q dev.zip
+  - mv node/out out
+  - rm -rf node
+  - mv node-dev node
+  - mv out node/out
+  - cd node
+  - ./configure --shared
+  - make -j4
+  - cd ..
+  - git clone https://github.com/cginternals/cpplocate.git
+  - cd cpplocate
+  - mkdir build
+  - cd build
+  - cmake ..
+  - cmake --build .
+  - sudo make install
+  - cd ../../..
+  - if [ $CMAKE_CONFIGURATION == release ]; then ./configure; fi
+  - if [ $CMAKE_CONFIGURATION == debug ]; then ./configure debug; fi
+  - mkdir $BUILD_DIR
+
+script:
+  - cd $BUILD_DIR
+  - cmake ..
+  - cmake --build .
+  # - cmake --build . --target test
+  - cmake --build . --target check-all
