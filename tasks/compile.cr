@@ -1,7 +1,7 @@
 require "./defined"
 require "file_utils"
 
-class PreBuild < LuckyCli::Task
+class NodeBuild < LuckyCli::Task
   summary "Build Node.js source. Need to exec before `lucky build`"
 
   def call
