@@ -3,16 +3,21 @@
   Node.js  for Crystal.
 
 ## Installation
+library 
+```
+sudo apt install clang++
+```
 
 ```bash
-shards install //need to lucky-cli 
+# need to lucky-cli 
+shards install 
+shards build
 
-lucky install  //need to ecosystem for v8 engine 
+# need to ecosystem for v8 engine 
+lucky install  
 ```
 
 ## Usage
-
-TODO: Write usage instructions here
 
 ## Development
 
