@@ -1,17 +1,17 @@
 require "./defined"
 require "file_utils"
 
-class Compile < LuckyCli::Task
-  summary "Compile Node.js source"
+class PreBuild < LuckyCli::Task
+  summary "Build Node.js source. Need to exec before `lucky build`"
 
   def call
     FileUtils.mkdir(EXTERNAL_DIR) unless Dir.exists?(EXTERNAL_DIR)
     unless Dir.exists?(NODEJS_SOURCE_DIR)
       git_clone_tag
       build_nodejs
-      success("Compiled")
+      success("Build done")
     else
-      success("No compile")
+      success("Build failed")
     end
   rescue e : Exception
     failed(e.to_s)
