@@ -5,10 +5,13 @@ authors:
   - fukaoi 
 
 targets:
-  v8:
-    main: nodejs.cr
+  # v8:
+    # main: nodejs.cr
 
-crystal: 0.27.0
+  lucky:
+    main: lib/lucky_cli/src/lucky.cr
+
+crystal: 0.27.2
 
 license: MIT
 
