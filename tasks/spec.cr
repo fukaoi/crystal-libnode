@@ -1,7 +1,7 @@
 require "lucky_cli"
 
 class Spec < LuckyCli::Task
-  banner "Spec all test and spec file select test"
+  summary "Spec all test and spec file select test"
 
   def call
     init_npm

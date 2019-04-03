@@ -2,7 +2,7 @@ require "./defined"
 require "file_utils"
 
 class Build < LuckyCli::Task
-  banner "Build Crystal program files"
+  summary "Build Crystal program files"
 
   def call
     mkdir_need_dir

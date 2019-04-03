@@ -2,7 +2,7 @@ require "./defined"
 require "file_utils"
 
 class Clean < LuckyCli::Task
-  banner "clean up bin/, libnode/ directory"
+  summary "clean up bin/, libnode/ directory"
 
   def call
     FileUtils.rm_r("bin") if Dir.exists?("bin")
@@ -14,7 +14,7 @@ class Clean < LuckyCli::Task
 end
 
 class FullClean < LuckyCli::Task
-  banner "Full clean up"
+  summary "Full clean up"
 
   def call
     Clean.new.call

@@ -3,7 +3,7 @@ require "../src/nodejs"
 
 class TestNpm < LuckyCli::Task
   FILE_NAME = "crystal_main"
-  banner "For npm module test. run spec/ext/#{FILE_NAME}.cr"
+  summary "For npm module test. run spec/ext/#{FILE_NAME}.cr"
 
   def call
     return failed("Not found npm name") unless ARGV.size == 1
@@ -27,7 +27,7 @@ end
 
 class TestC < LuckyCli::Task
   FILE_NAME = "main"
-  banner "run spec/ext/#{FILE_NAME}.cc"
+  summary "run spec/ext/#{FILE_NAME}.cc"
 
   def call
     build

@@ -2,7 +2,7 @@ require "./defined"
 require "file_utils"
 
 class Compile < LuckyCli::Task
-  banner "Compile Node.js source"
+  summary "Compile Node.js source"
 
   def call
     FileUtils.mkdir(EXTERNAL_DIR) unless Dir.exists?(EXTERNAL_DIR)
