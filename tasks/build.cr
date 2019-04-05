@@ -6,7 +6,6 @@ class Build < LuckyCli::Task
 
   def call
     mkdir_need_dir
-    copy_patch_files
     build_nodejs
     copy_libnode
     success("Build done")
@@ -17,13 +16,6 @@ class Build < LuckyCli::Task
   private def mkdir_need_dir
     FileUtils.mkdir(LIBRARY_DIR) unless Dir.exists?(LIBRARY_DIR)
     FileUtils.mkdir("bin") unless Dir.exists?("bin")
-  end
-
-  private def copy_patch_files
-    status = false
-    status |= system("cp #{CPULS_SOURCE_DIR}/#{NODE_VERSION}_#{LIBNODE_VERSION}/node.cc #{NODEJS_SOURCE_DIR}/src/")
-    status |= system("cp #{CPULS_SOURCE_DIR}/#{NODE_VERSION}_#{LIBNODE_VERSION}/node.js #{NODEJS_SOURCE_DIR}/lib/internal/bootstrap/")
-    raise Exception.new("Failed copy patch files") unless status
   end
 
   private def copy_libnode
