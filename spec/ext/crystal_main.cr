@@ -2,7 +2,7 @@ require "../../src/nodejs.cr"
 
 def crystal_main(npm_name)
   unless npm_name
-    puts("Not found npm name")
+    puts("Please set npm name at argument")
     return
   end
   puts "Executable main method..."
