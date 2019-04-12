@@ -4304,33 +4304,33 @@ MaybeLocal<Value> Evaluate(Environment* env, const std::string& js_code) {
     ReportException(env, try_catch);
     return MaybeLocal<Value>();
   }
-  Local<Value> result = script.ToLocalChecked()->Run();
-  if (result->IsBoolean()) {
-    cout << "Boolean" << endl;
-    result->ToInteger();
-  } else if (result->IsString()) {
-    cout << "String" << endl;
-    result->ToString();
-  } else if (result->IsInt32()) {
-    cout << "Int32" << endl;
-    result->ToInteger();
-  } else if (result->IsArray()) {
-    cout << "Array" << endl;
-  } else if (result->IsFloat64Array()) {
-    cout << "Float64Array" << endl;
-  } else if (result->IsFunction()) {
-    cout << "Function" << endl;
-  } else if (result->IsNumber()) {
-    cout << "Number" << endl;
-  } else if (result->IsObject()) {
-    cout << "Object" << endl;
-  } else if (result->IsSymbol()) {
-    cout << "Symbol" << endl;
-  } else if (result->IsNull()) {
-    cout << "Null" << endl;
-  } else {
-    cout << "Other" << endl;
-  }
+  // Local<Value> result = script.ToLocalChecked()->Run();
+  // if (result->IsBoolean()) {
+    // cout << "Boolean" << endl;
+    // result->ToInteger();
+  // } else if (result->IsString()) {
+    // cout << "String" << endl;
+    // result->ToString();
+  // } else if (result->IsInt32()) {
+    // cout << "Int32" << endl;
+    // result->ToInteger();
+  // } else if (result->IsArray()) {
+    // cout << "Array" << endl;
+  // } else if (result->IsFloat64Array()) {
+    // cout << "Float64Array" << endl;
+  // } else if (result->IsFunction()) {
+    // cout << "Function" << endl;
+  // } else if (result->IsNumber()) {
+    // cout << "Number" << endl;
+  // } else if (result->IsObject()) {
+    // cout << "Object" << endl;
+  // } else if (result->IsSymbol()) {
+    // cout << "Symbol" << endl;
+  // } else if (result->IsNull()) {
+    // cout << "Null" << endl;
+  // } else {
+    // cout << "Other" << endl;
+  // }
   return MaybeLocal<Value>(scope.Escape(script.ToLocalChecked()->Run()));
 }
 

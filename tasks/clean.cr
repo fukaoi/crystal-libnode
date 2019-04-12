@@ -7,6 +7,7 @@ class Clean < LuckyCli::Task
   def call
     FileUtils.rm_r("bin") if Dir.exists?("bin")
     FileUtils.rm_r("libnode") if Dir.exists?("libnode")
+    system("shards build")
     success("Clean up")
   rescue e : Exception
     failed(e.to_s)
