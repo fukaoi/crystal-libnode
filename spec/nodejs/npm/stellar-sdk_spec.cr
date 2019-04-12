@@ -22,5 +22,3 @@ describe npm("stellar-sdk") do
     )
   end
 end
-
-

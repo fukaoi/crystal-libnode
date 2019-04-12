@@ -3,7 +3,7 @@ require "./nodejs/*"
 module Node
   extend self
   @@v8_initialize = false
-  
+
   def set_v8_status(status : Bool) : Void
     @@v8_initialize = status
   end

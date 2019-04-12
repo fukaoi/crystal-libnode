@@ -3,7 +3,7 @@ require "./spec_helper"
 describe node = Node::Js.new do
   it "Evaluate js code" do
     node.eval("
-      const data = 1 + 1 
+      const data = 1 + 1
       console.log(data)
     ")
   end
@@ -19,4 +19,3 @@ describe node = Node::Js.new do
     res.should eq "11"
   end
 end
-

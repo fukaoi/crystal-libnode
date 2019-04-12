@@ -4,7 +4,7 @@ describe npm("ripple-lib") do
   it "Get account info" do
     node = Node::Js.new
     node.eval(
-    <<-CMD
+      <<-CMD
       'use strict';
 
       const RippleAPI = require('ripple-lib').RippleAPI;
@@ -15,7 +15,7 @@ describe npm("ripple-lib") do
     )
 
     node.eval(
-    <<-CMD
+      <<-CMD
       api.connect().then(() => {
         const myAddress = 'rJumr5e1HwiuV543H7bqixhtFreChWTaHH';
         console.log('getting account info for', myAddress);
@@ -32,8 +32,3 @@ describe npm("ripple-lib") do
     )
   end
 end
-
-
-
-
-

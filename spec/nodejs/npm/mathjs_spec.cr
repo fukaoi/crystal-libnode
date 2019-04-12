@@ -1,6 +1,5 @@
 require "../npm_spec.cr"
 
-
 describe npm("mathjs") do
   it "Calc round" do
     node = Node::Js.new
@@ -13,5 +12,3 @@ describe npm("mathjs") do
     res.should eq "2.718"
   end
 end
-
-
