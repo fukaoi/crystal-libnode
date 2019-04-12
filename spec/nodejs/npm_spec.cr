@@ -35,6 +35,18 @@ describe npm("stellar-sdk") do
   end
 end
 
+describe npm("web3") do
+  it "web3" do
+    node = Node::Js.new
+    node.eval(
+      <<-CMD
+        const web3 = require('web3'); 
+        console.log(web3);
+      CMD
+    )
+  end
+end
+
 describe npm("solc") do
   it "solc" do
     node = Node::Js.new
