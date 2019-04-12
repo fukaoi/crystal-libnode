@@ -9,7 +9,7 @@ describe npm("ripple-lib") do
 
       const RippleAPI = require('ripple-lib').RippleAPI;
       const api = new RippleAPI({
-        server: 'wss://s.altnet.rippletest.net:51233'
+        server: 'wss://s2.ripple.com:443'
       });
     CMD
     )
@@ -17,7 +17,7 @@ describe npm("ripple-lib") do
     node.eval(
     <<-CMD
       api.connect().then(() => {
-        const myAddress = 'rsxSWHhd1MhstE8BPihxfZinj5WsnmLtPa';
+        const myAddress = 'rJumr5e1HwiuV543H7bqixhtFreChWTaHH';
         console.log('getting account info for', myAddress);
         return api.getAccountInfo(myAddress);
       }).then(info => {
