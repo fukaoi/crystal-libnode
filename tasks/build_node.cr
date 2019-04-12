@@ -6,16 +6,19 @@ class BuildNode < LuckyCli::Task
 
   def call
     FileUtils.mkdir(EXTERNAL_DIR) unless Dir.exists?(EXTERNAL_DIR)
-    unless Dir.exists?(NODEJS_SOURCE_DIR)
-      git_clone_tag
-      copy_patch_files
-      build_nodejs
-      success("Build done")
-    else
-      success("Build failed")
-    end
+    git_clone_tag
+    build_nodejs  # create node binary
+    system("make install")
+    extract_node_binary
+    copy_patch_files
+    build_nodejs  # create libnode.a shared object
+    success("Build done")
   rescue e : Exception
     failed(e.to_s)
+  end
+
+  private def extract_node_binary
+    FileUtils.cp("#{NODEJS_SOURCE_DIR}/out/Debug/node", "#{NODEJS_SOURCE_DIR}/out/Debug/node_binary")
   end
 
   private def copy_patch_files

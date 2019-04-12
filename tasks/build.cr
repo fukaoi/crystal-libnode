@@ -6,7 +6,7 @@ class Build < LuckyCli::Task
 
   def call
     mkdir_need_dir
-    build_nodejs
+    # build_nodejs todo: No need 
     copy_libnode
     success("Build done")
   rescue e : Exception

@@ -47,7 +47,7 @@ def parse_nodejs_version
 end
 
 def build_nodejs
-  system("cd ./#{NODEJS_SOURCE_DIR};./configure --debug --shared;make -j#{count_cpu}")
+  system("cd ./#{NODEJS_SOURCE_DIR};./configure --prefix=./ --debug --shared;make -j#{count_cpu}")
 end
 
 private def count_cpu
