@@ -46,8 +46,9 @@ def parse_nodejs_version
   versions = File.basename(dir_names).split("_")
 end
 
-def build_nodejs
-  system("cd ./#{NODEJS_SOURCE_DIR};./configure --prefix=./ --debug --shared;make -j#{count_cpu}")
+def build_nodejs(options = "")
+  p options
+  system("cd ./#{NODEJS_SOURCE_DIR};./configure #{options} --debug --shared;make -j#{count_cpu}")
 end
 
 private def count_cpu

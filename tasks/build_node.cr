@@ -7,18 +7,19 @@ class BuildNode < LuckyCli::Task
   def call
     FileUtils.mkdir(EXTERNAL_DIR) unless Dir.exists?(EXTERNAL_DIR)
     git_clone_tag
-    build_nodejs  # create node binary
-    system("make install")
-    extract_node_binary
-    copy_patch_files
-    build_nodejs  # create libnode.a shared object
+    FileUtils.mkdir("./bin/node-#{LIBNODE_VERSION}") unless Dir.exists?("./bin/node-#{LIBNODE_VERSION}")
+    build_nodejs("--prefix=#{ENV["PWD"]}/bin/node-#{LIBNODE_VERSION}")  # create node binary
+    system("cd #{NODEJS_SOURCE_DIR};make install")
+    FileUtils.cp("#{NODEJS_SOURCE_DIR}/node", "./bin/node-#{LIBNODE_VERSION}/bin/")
+    system("sed -e '1d' ./bin/node-#{LIBNODE_VERSION}/bin/npm > ./bin/node-#{LIBNODE_VERSION}/bin/npm") 
+    system("sed -i '1s/^/#!./node\n/' ./bin/node-#{LIBNODE_VERSION}/bin/npm")
+    system("export LD_LIBRAY_PATH")
+
+    # copy_patch_files
+    # build_nodejs  # create libnode.a shared object
     success("Build done")
   rescue e : Exception
     failed(e.to_s)
-  end
-
-  private def extract_node_binary
-    FileUtils.cp("#{NODEJS_SOURCE_DIR}/out/Debug/node", "#{NODEJS_SOURCE_DIR}/out/Debug/node_binary")
   end
 
   private def copy_patch_files
@@ -31,8 +32,12 @@ class BuildNode < LuckyCli::Task
 
   private def git_clone_tag
     status = false
-    status |= system("cd ./#{EXTERNAL_DIR};git clone git@github.com:nodejs/node.git")
-    status |= system("cd ./#{EXTERNAL_DIR}/node;git checkout #{NODE_VERSION}")
+    unless Dir.exists?("#{EXTERNAL_DIR}/node")
+    	status |= system("cd ./#{EXTERNAL_DIR};git clone git@github.com:nodejs/node.git")
+    	status |= system("cd ./#{EXTERNAL_DIR}/node;git checkout #{NODE_VERSION}")
+    else 
+      status |= system("cd ./#{EXTERNAL_DIR}/node;git reset --hard")
+    end
     raise Exception.new("Failed git clone") unless status
   end
 end
