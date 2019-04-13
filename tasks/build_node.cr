@@ -39,7 +39,7 @@ class BuildNode < LuckyCli::Task
 
   private def replace_path_innpm
     npm_path = "#{CUSTOM_NPM_DIR}/bin/npm"
-    body = File.read(npm_path).gsub("/usr/bin/env node","#{CUSTOM_NPM_DIR}/bin/node")
+    body = File.read(npm_path).gsub("/usr/bin/env node","#{ENV["PWD"]}/#{CUSTOM_NPM_DIR}/bin/node")
     File.write(npm_path, body)
   end
 

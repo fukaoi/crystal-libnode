@@ -17,6 +17,7 @@ class Spec < LuckyCli::Task
   end
 
   private def init_npm
-    raise "Failed npm init" unless system("cd /tmp; ./bin/#{NODE_VERSION}/bin/npm init --yes")
+    project_dir = ENV["PWD"]
+    raise "Failed npm init" unless system("cd /tmp;#{project_dir}/bin/node-#{NODE_VERSION}/bin/npm init --yes")
   end
 end
