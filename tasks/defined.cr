@@ -42,7 +42,6 @@ end
 #   dir
 # end
 
-
 def build_nodejs(options = "")
   system("cd ./#{NODEJS_SOURCE_DIR};./configure #{options};make -j#{count_cpu}")
 end
@@ -64,4 +63,3 @@ end
 private def count_cpu
   System.cpu_count.to_i
 end
-

@@ -31,7 +31,7 @@ module Node
 
   module Npm
     extend self
-    CPULS_SOURCE_DIR  = "src/ext"
+    CPULS_SOURCE_DIR = "src/ext"
 
     def is_installed?(package_name : String) : Bool
       status = false
@@ -41,18 +41,18 @@ module Node
       end
       return status
     end
-    
+
     def path(version = "") : String
-      unless version
-        versions = parse_nodejs_version 
-      else 
+      if version.blank?
+        versions = parse_nodejs_version
+      else
         versions = parse_nodejs_version(version)
       end
-      "#{ENV["PWD"]}/bin/node-#{versions[0]}/bin/npm"       
+      "#{ENV["PWD"]}/bin/node-#{versions[0]}/bin/npm"
     end
-    
+
     def parse_nodejs_version(version = "") : Array(String)
-      unless version
+      if version.blank?
         version = Dir.glob("#{CPULS_SOURCE_DIR}/v*").sort { |a, b| b <=> a }[0]
       end
       versions = File.basename(version).split("_")

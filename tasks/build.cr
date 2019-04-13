@@ -1,14 +1,25 @@
 require "./defined"
 require "file_utils"
 
-class Build < LuckyCli::Task
+class AllBuild < LuckyCli::Task
+  summary "All build task"
+
+  def call
+    BuildNode.new.call
+    BuildLibnode.new.call
+    BuildCrystal.new.call
+    success("All build done")
+  end
+end
+
+class BuildCrystal < LuckyCli::Task
   summary "Build Crystal program files"
 
   def call
     mkdir_need_dir
-    # build_nodejs todo: No need 
+    # build_nodejs todo: No need
     copy_libnode
-    success("Build done")
+    success("Crystal build done")
   rescue e : Exception
     failed(e.to_s)
   end
