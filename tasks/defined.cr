@@ -1,5 +1,6 @@
 require "yaml"
 require "colorize"
+require "../src/nodejs"
 
 CPULS_SOURCE_DIR  = "src/ext"
 EXTERNAL_DIR      = "externals"
@@ -16,8 +17,8 @@ V8_DIR    = "#{TOOLS_DIR}/v8"
 DEFAULT_ENV  = "test"
 ENV_PATTERNS = {release: "release", development: "development", test: "test"}
 
-NODE_VERSION    = parse_nodejs_version[0]
-LIBNODE_VERSION = parse_nodejs_version[1]
+NODE_VERSION    = Node::Npm.parse_nodejs_version[0]
+LIBNODE_VERSION = Node::Npm.parse_nodejs_version[1]
 
 begin
   ENV["LUCKY_ENV"]
@@ -41,18 +42,9 @@ end
 #   dir
 # end
 
-def parse_nodejs_version
-  dir_names = Dir.glob("#{CPULS_SOURCE_DIR}/v*").sort { |a, b| b <=> a }[0]
-  versions = File.basename(dir_names).split("_")
-end
 
 def build_nodejs(options = "")
-  p options
   system("cd ./#{NODEJS_SOURCE_DIR};./configure #{options};make -j#{count_cpu}")
-end
-
-private def count_cpu
-  System.cpu_count.to_i
 end
 
 def debug(message)
@@ -68,3 +60,8 @@ end
 def success(message)
   puts message.colorize(:green)
 end
+
+private def count_cpu
+  System.cpu_count.to_i
+end
+
