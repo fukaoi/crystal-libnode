@@ -17,6 +17,6 @@ class Spec < LuckyCli::Task
   end
 
   private def init_npm
-    raise "Failed npm init" unless system("cd /tmp; npm init --yes")
+    raise "Failed npm init" unless system("cd /tmp; ./bin/#{NODE_VERSION}/bin/npm init --yes")
   end
 end

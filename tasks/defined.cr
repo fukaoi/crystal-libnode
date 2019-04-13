@@ -48,7 +48,7 @@ end
 
 def build_nodejs(options = "")
   p options
-  system("cd ./#{NODEJS_SOURCE_DIR};./configure #{options} --debug --shared;make -j#{count_cpu}")
+  system("cd ./#{NODEJS_SOURCE_DIR};./configure #{options};make -j#{count_cpu}")
 end
 
 private def count_cpu
