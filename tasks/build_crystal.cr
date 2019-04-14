@@ -1,17 +1,6 @@
 require "./defined"
 require "file_utils"
 
-class AllBuild < LuckyCli::Task
-  summary "All build task"
-
-  def call
-    BuildNode.new.call
-    BuildLibnode.new.call
-    BuildCrystal.new.call
-    success("All build done")
-  end
-end
-
 class BuildCrystal < LuckyCli::Task
   summary "Build Crystal program files"
 
