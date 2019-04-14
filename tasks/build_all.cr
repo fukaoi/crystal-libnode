@@ -10,5 +10,3 @@ class AllBuild < LuckyCli::Task
     success("All build done")
   end
 end
-
-

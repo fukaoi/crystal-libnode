@@ -19,6 +19,5 @@ describe file_name do
     CMD
     system(cmd).should be_true
     system("LD_LIBRARY_PATH=#{LIBRARY_DIR} /tmp/#{file_name}").should be_true
-   end
+  end
 end
-
