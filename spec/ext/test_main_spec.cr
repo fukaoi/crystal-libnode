@@ -1,6 +1,6 @@
 require "../spec_helper"
 require "../../tasks/defined.cr"
-require "../../src/nodejs"
+require "../../src/node"
 
 file_name = "test_main"
 describe file_name do

@@ -1,4 +1,4 @@
-require "./nodejs/*"
+require "./node/*"
 
 module Node
   extend self
@@ -44,14 +44,14 @@ module Node
 
     def path(version = "") : String
       if version.blank?
-        versions = parse_nodejs_version
+        versions = parse_node_version
       else
-        versions = parse_nodejs_version(version)
+        versions = parse_node_version(version)
       end
       "#{ENV["PWD"]}/bin/node-#{versions[0]}/bin/npm"
     end
 
-    def parse_nodejs_version(version = "") : Array(String)
+    def parse_node_version(version = "") : Array(String)
       if version.blank?
         version = Dir.glob("#{CPULS_SOURCE_DIR}/v*").sort { |a, b| b <=> a }[0]
       end

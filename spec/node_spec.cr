@@ -19,3 +19,8 @@ describe node = Node::Js.new do
     res.should eq "11"
   end
 end
+
+describe Node::Npm do
+  it "Evaluate js code" do
+  end
+end

@@ -1,7 +1,7 @@
 @[Link(ldflags:
   "-lstdc++ -L#{__DIR__}/../../libnode #{__DIR__}/../../libnode/libnode.so.64"
 )]
-
+# toodo: module Node
 lib LibNodeJs
   fun init : Void
   fun eval(code : LibC::Char*) : LibC::Char*

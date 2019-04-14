@@ -1,6 +1,6 @@
 require "yaml"
 require "colorize"
-require "../src/nodejs"
+require "../src/node"
 
 CPULS_SOURCE_DIR  = "src/ext"
 EXTERNAL_DIR      = "externals"
@@ -17,8 +17,8 @@ V8_DIR    = "#{TOOLS_DIR}/v8"
 DEFAULT_ENV  = "test"
 ENV_PATTERNS = {release: "release", development: "development", test: "test"}
 
-NODE_VERSION    = Node::Npm.parse_nodejs_version[0]
-LIBNODE_VERSION = Node::Npm.parse_nodejs_version[1]
+NODE_VERSION    = Node::Npm.parse_node_version[0]
+LIBNODE_VERSION = Node::Npm.parse_node_version[1]
 
 begin
   ENV["LUCKY_ENV"]

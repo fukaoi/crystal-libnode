@@ -1,4 +1,4 @@
-module Nodejs
+module Node
   class Exception < Exception
   end
 end

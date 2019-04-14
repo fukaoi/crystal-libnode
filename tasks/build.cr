@@ -17,7 +17,6 @@ class BuildCrystal < LuckyCli::Task
 
   def call
     mkdir_need_dir
-    # build_nodejs todo: No need
     copy_libnode
     success("Crystal build done")
   rescue e : Exception
