@@ -7,6 +7,7 @@ class BuildCrystal < LuckyCli::Task
   def call
     mkdir_need_dir
     copy_libnode
+    # todo: crystal build command
     success("Crystal build done")
   rescue e : Exception
     failed(e.to_s)
