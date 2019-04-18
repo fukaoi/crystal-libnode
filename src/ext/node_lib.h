@@ -45,8 +45,6 @@ namespace node
 
   NODE_EXTERN void RunEventLoop(const function<void()> &callback, UvLoopBehavior behavior = UvLoopBehavior::RUN_NOWAIT);
 
-  NODE_EXTERN void StopEventLoop();
-
   NODE_EXTERN MaybeLocal<Value> Evaluate(const string &js_code);
 
   NODE_EXTERN MaybeLocal<Value> Evaluate(Environment *env,

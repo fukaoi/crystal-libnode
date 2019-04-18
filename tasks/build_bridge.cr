@@ -23,6 +23,7 @@ class BuildBridge < LuckyCli::Task
            -std=c++11 \
            src/ext/bridge.cc \
            -L#{LIBRARY_DIR}/libnode.so.#{LIBNODE_VERSION}"  
+    p cmd       
     system(cmd)
   end
 
