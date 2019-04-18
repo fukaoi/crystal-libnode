@@ -1,0 +1,11 @@
+%clang -g
+%cpp -std=gnu++11 
+-I/usr/include/
+-I/usr/local/include/
+-I./externals/node/src/
+-I./externals/node/deps/v8/include/
+-I./externals/node/deps/uv/include/
+-I./externals/node/deps/include/
+-I./externals/node/deps/http_parser/
+-I./externals/node/deps/nghttp2/lib/includes/nghttp2
+-I./src/ext/
