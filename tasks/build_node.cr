@@ -29,6 +29,14 @@ class BuildNode < LuckyCli::Task
     raise Exception.new("Failed git clone") unless status
   end
 
+  def copy_patch_files
+    status = false
+    status |= system("cp #{CPULS_SOURCE_DIR}/node_lib.* #{NODEJS_SOURCE_DIR}/src/")
+    status |= system("cp #{CPULS_SOURCE_DIR}/#{NODE_VERSION}_#{LIBNODE_VERSION}/node.cc #{NODEJS_SOURCE_DIR}/src/")
+    status |= system("cp #{CPULS_SOURCE_DIR}/#{NODE_VERSION}_#{LIBNODE_VERSION}/node.js #{NODEJS_SOURCE_DIR}/lib/internal/bootstrap/")
+    raise Exception.new("Failed copy patch files") unless status
+  end
+
   private def install_custom_node_npm
     FileUtils.mkdir(CUSTOM_NPM_DIR) unless Dir.exists?(CUSTOM_NPM_DIR)
     build_nodejs("--prefix=#{ENV["PWD"]}/#{CUSTOM_NPM_DIR} --debug") # create node binary
@@ -40,14 +48,6 @@ class BuildNode < LuckyCli::Task
     npm_path = "#{CUSTOM_NPM_DIR}/bin/npm"
     body = File.read(npm_path).gsub("/usr/bin/env node", "#{ENV["PWD"]}/#{CUSTOM_NPM_DIR}/bin/node")
     File.write(npm_path, body)
-  end
-
-  private def copy_patch_files
-    status = false
-    status |= system("cp #{CPULS_SOURCE_DIR}/node_lib.h #{NODEJS_SOURCE_DIR}/src/")
-    status |= system("cp #{CPULS_SOURCE_DIR}/#{NODE_VERSION}_#{LIBNODE_VERSION}/node.cc #{NODEJS_SOURCE_DIR}/src/")
-    status |= system("cp #{CPULS_SOURCE_DIR}/#{NODE_VERSION}_#{LIBNODE_VERSION}/node.js #{NODEJS_SOURCE_DIR}/lib/internal/bootstrap/")
-    raise Exception.new("Failed copy patch files") unless status
   end
 end
 
