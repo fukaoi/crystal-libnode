@@ -6,7 +6,7 @@ class FullBuild < LuckyCli::Task
   def call
     BuildNode.new.call
     BuildLibnode.new.call
-    BuildCrystal.new.call
+    BuildBridge.new.call
     success("Full build done")
   end
 end

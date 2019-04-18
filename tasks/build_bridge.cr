@@ -1,16 +1,29 @@
 require "./defined"
 require "file_utils"
 
-class BuildCrystal < LuckyCli::Task
-  summary "Build Crystal program files"
+class BuildBridge < LuckyCli::Task
+  summary "Build a bridge program file"
 
   def call
     mkdir_need_dir
     copy_libnode
-    # todo: crystal build command
-    success("Crystal build done")
+    build_bridge
+    success("bridge program build done")
   rescue e : Exception
     failed(e.to_s)
+  end
+
+  private def build_bridge
+    cmd = "g++ \
+           -g \
+           -I#{NODEJS_SOURCE_DIR}/src/ \
+           -I#{NODEJS_SOURCE_DIR}/deps/v8/include/ \
+           -I#{NODEJS_SOURCE_DIR}/deps/uv/include/ \
+           -I src/ext \
+           -std=c++11 \
+           src/ext/bridge.cc \
+           -L#{LIBRARY_DIR}/libnode.so.#{LIBNODE_VERSION}"  
+    system(cmd)
   end
 
   private def mkdir_need_dir

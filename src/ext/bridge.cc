@@ -1,5 +1,6 @@
 #ifndef BRIDGE_H
 #define BRIDGE_H
+#include <string.h>
 #include <string>
 #include <iostream>
 #include "node_lib.h"
