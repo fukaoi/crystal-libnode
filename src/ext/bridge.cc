@@ -1,6 +1,32 @@
+#ifndef BRIDGE_H
+#define BRIDGE_H
 #include <string>
 #include <iostream>
 #include "node_lib.h"
+
+using namespace std;
+using namespace v8;
+
+/////// header
+extern "C" {
+  void init();
+  const char* eval(const char* js_code);
+  void callback();
+  void deinit();
+}
+
+const char* toCrystalString(const String::Utf8Value &value);
+const char* toCString(const String::Utf8Value &value);
+
+typedef struct {
+  char *crystal_type;
+  char *js_response;
+} TupleCr;
+
+TupleCr createReponseType();
+/////// header
+
+
 
 void init(){
   node::Initialize("crytal-nodejs");
@@ -38,3 +64,6 @@ TupleCr createReponseType() {
   tuple.js_response = "lskdklkl30030200202kokdkdkdkdkdkdkkd";
   return tuple;
 } 
+
+#endif // BRIDGE_H
+

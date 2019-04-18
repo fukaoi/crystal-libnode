@@ -52,24 +52,5 @@ namespace node
   NODE_EXTERN MaybeLocal<Value> Evaluate(Environment *env,
                                                const string &js_code);
 }
-
-
-extern "C" {
-  void init();
-  const char* eval(const char* js_code);
-  void callback();
-  void deinit();
-
-  typedef struct {
-    char *crystal_type;
-    char *js_response;
-  } TupleCr;
-
-  TupleCr createReponseType();
-}
-
-const char* toCrystalString(const String::Utf8Value &value);
-const char* toCString(const String::Utf8Value &value);
-
 #endif // NODE_LIB_H
 
