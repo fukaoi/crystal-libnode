@@ -10,7 +10,6 @@ using namespace std;
 
 int main(int argc, char const *argv[])
 {
-  printf("\n### Start ###\n");
   node::Initialize("main");
   node::Evaluate("1 + 1");
   node::Evaluate("'Hello' + 'World'");
@@ -29,7 +28,6 @@ int main(int argc, char const *argv[])
   node::Evaluate("undefined");
   node::Evaluate("");
   node::Deinitialize();
-  printf("#### End ####\n");
 
   return 0;
 }

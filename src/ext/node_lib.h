@@ -10,12 +10,15 @@
 #include "uv.h"
 #include "node.h"
 
+using namespace std;
+using namespace v8;
+
 namespace node
 {
 
   namespace internal
   { 
-    v8::Isolate *isolate();
+    Isolate *isolate();
     Environment *environment();
   }
 
@@ -28,8 +31,8 @@ namespace node
 
   bool eventLoopIsRunning();
 
-  NODE_EXTERN int Initialize(const std::string &program_name = "node_lib",
-                             const std::vector<std::string> &node_args = {},
+  NODE_EXTERN int Initialize(const string &program_name = "node_lib",
+                             const vector<string> &node_args = {},
                              const bool evaluate_stdin = false);
 
   NODE_EXTERN int Initialize(int argc,
@@ -40,30 +43,33 @@ namespace node
 
   NODE_EXTERN bool ProcessEvents(UvLoopBehavior behavior = UvLoopBehavior::RUN_NOWAIT);
 
-  NODE_EXTERN void RunEventLoop(
-    const std::function<void()> &callback,
-    UvLoopBehavior behavior = UvLoopBehavior::RUN_NOWAIT);
+  NODE_EXTERN void RunEventLoop(const function<void()> &callback, UvLoopBehavior behavior = UvLoopBehavior::RUN_NOWAIT);
 
   NODE_EXTERN void StopEventLoop();
 
-  NODE_EXTERN v8::MaybeLocal<v8::Value> Evaluate(const std::string &js_code);
+  NODE_EXTERN MaybeLocal<Value> Evaluate(const string &js_code);
 
-  NODE_EXTERN v8::MaybeLocal<v8::Value> Evaluate(Environment *env,
-                                               const std::string &js_code);
+  NODE_EXTERN MaybeLocal<Value> Evaluate(Environment *env,
+                                               const string &js_code);
 }
 
-using namespace std;
-using namespace v8;
 
 extern "C" {
   void init();
   const char* eval(const char* js_code);
   void callback();
   void deinit();
+
+  typedef struct {
+    char *crystal_type;
+    char *js_response;
+  } TupleCr;
+
+  TupleCr createReponseType();
 }
 
-const char* ToCrystalString(const String::Utf8Value &value);
-const char* ToCString(const String::Utf8Value &value);
+const char* toCrystalString(const String::Utf8Value &value);
+const char* toCString(const String::Utf8Value &value);
 
 #endif // NODE_LIB_H
 
