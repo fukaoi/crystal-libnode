@@ -1,4 +1,0 @@
-{
-  BRARY_DIR} #{LIBRARY_DIR}/libnode.so.#{LIBNODE_VERSION}  \"directory":"~/Work/crystal-nodejs/src/ext",
-   ./bin/#{FILE_NAME}
-  "command":"g++ -g src/ext/ \#{NOtd=gnu++11  \EJS_Spec/ext/#{FILE_NAME}.cc  \URCE_DIR}/deps/uv/include/ \#{NODEJS_SOURCE_DIR}/deps/v8/include/ \#{NODEJS_SOURCE_DIR}/src/  \}
