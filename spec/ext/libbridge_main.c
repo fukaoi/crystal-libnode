@@ -28,6 +28,12 @@ int main(int argc, char const *argv[]) {
   printf("{'val':'hogehoge'} | ==> %s\n", evalResponseType("{val: 'hogehoge'}"));
   printf("{10,20,30,40} | ==> %s\n", evalResponseType("{10,20,30,40}"));
   printf("{'a','b','c','d','e','f'} | ==> %s\n", evalResponseType("{'a','b','c','d','e','f'}"));
+  printf("Throw exception | ==> %s\n", evalResponseType("try { \
+          throw new Error('throwing test in libbridge_main.c'); \
+        } catch(e) { \
+          console.log('RAISE_EXCEPTION'); \
+          console.log(e);}" \
+        ));
 
   //// evaluate ////
   Tuple res;  
