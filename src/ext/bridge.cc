@@ -22,8 +22,8 @@ const char* toCrystalString(const String::Utf8Value &value);
 const char* toCString(const String::Utf8Value &value);
 
 typedef struct {
-  char *crystal_type;
-  char *js_response;
+  const char *crystal_type;
+  const char *js_response;
 } TupleCr;
 
 TupleCr createReponseType();
