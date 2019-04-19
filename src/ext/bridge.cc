@@ -21,7 +21,6 @@ const char* evalResponseType(const char* str) {
   return type;
 }
 
-
 void callback() {
   while (node::ProcessEvents()) { }
 }
