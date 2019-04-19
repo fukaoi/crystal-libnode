@@ -4,6 +4,8 @@
 #include <string>
 #include <iostream>
 #include "node_lib.h"
+#include "node.h"
+#include "v8.h"
 
 using namespace std;
 using namespace v8;

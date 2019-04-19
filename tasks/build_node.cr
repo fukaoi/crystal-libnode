@@ -31,7 +31,7 @@ class BuildNode < LuckyCli::Task
 
   def copy_patch_files
     status = false
-    status |= system("cp #{CPULS_SOURCE_DIR}/node_lib.* #{NODEJS_SOURCE_DIR}/src/")
+    status |= system("cp #{CPULS_SOURCE_DIR}/node_lib.h #{NODEJS_SOURCE_DIR}/src/")
     status |= system("cp #{CPULS_SOURCE_DIR}/#{NODE_VERSION}_#{LIBNODE_VERSION}/node.cc #{NODEJS_SOURCE_DIR}/src/")
     status |= system("cp #{CPULS_SOURCE_DIR}/#{NODE_VERSION}_#{LIBNODE_VERSION}/node.js #{NODEJS_SOURCE_DIR}/lib/internal/bootstrap/")
     raise Exception.new("Failed copy patch files") unless status

@@ -14,16 +14,20 @@ class BuildBridge < LuckyCli::Task
   end
 
   private def build_bridge
-    cmd = "g++ \
-           -g \
-           -I#{NODEJS_SOURCE_DIR}/src/ \
-           -I#{NODEJS_SOURCE_DIR}/deps/v8/include/ \
-           -I#{NODEJS_SOURCE_DIR}/deps/uv/include/ \
-           -I src/ext \
-           -std=c++11 \
-           src/ext/bridge.cc \
-           -L#{LIBRARY_DIR}/libnode.so.#{LIBNODE_VERSION}"  
-    p cmd       
+    #todo: debug or release
+    cmd = <<-CMD
+      g++ \
+      -g \
+      -I#{NODEJS_SOURCE_DIR}/src/ \
+      -I#{NODEJS_SOURCE_DIR}/deps/v8/include/ \
+      -I#{NODEJS_SOURCE_DIR}/deps/uv/include/ \
+      -I src/ext \
+      -std=c++11 \
+      src/ext/bridge.cc \
+      -L#{LIBRARY_DIR}/libnode.so.#{LIBNODE_VERSION} \
+      -c -o #{LIBRARY_DIR}/libbridge.so
+    CMD
+    puts cmd
     system(cmd)
   end
 
