@@ -27,7 +27,6 @@ class BuildBridge < LuckyCli::Task
       -L#{LIBRARY_DIR}/libnode.so.#{LIBNODE_VERSION} \
       -c -o #{LIBRARY_DIR}/libbridge.so
     CMD
-    puts cmd
     system(cmd)
   end
 
