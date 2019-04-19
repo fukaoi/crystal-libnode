@@ -23,10 +23,13 @@ class BuildBridge < LuckyCli::Task
       -I#{NODEJS_SOURCE_DIR}/deps/uv/include/ \
       -I src/ext \
       -std=c++11 \
+      -shared \
+      -fPIC \
       src/ext/bridge.cc \
       -L#{LIBRARY_DIR}/libnode.so.#{LIBNODE_VERSION} \
-      -c -o #{LIBRARY_DIR}/libbridge.so
+      -o #{LIBRARY_DIR}/libbridge.so
     CMD
+    puts cmd
     system(cmd)
   end
 

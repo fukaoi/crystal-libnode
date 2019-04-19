@@ -1,5 +1,5 @@
 @[Link(ldflags:
-  "-lstdc++ -L#{__DIR__}/../../libnode #{__DIR__}/../../libnode/libnode.so.64"
+  "-lstdc++ -L#{__DIR__}/../../libnode #{__DIR__}/../../libnode/libbridge.so #{__DIR__}/../../libnode/libnode.so.64"
 )]
 # toodo: module Node
 lib LibNodeJs

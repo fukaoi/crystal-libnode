@@ -33,12 +33,13 @@ describe c_file do
       -I #{NODEJS_SOURCE_DIR}/deps/uv/include/ \
       -I src/ext/ \
       -std=gnu++11  \
-      spec/ext/#{c_file}.c  \
+      spec/ext/#{c_file}.c \
+      -o /tmp/#{c_file} \
       -L#{LIBRARY_DIR} \
-      #{LIBRARY_DIR}/libnode.so.#{LIBNODE_VERSION}  \
       #{LIBRARY_DIR}/libbridge.so  \
-      -o /tmp/#{c_file}
+      #{LIBRARY_DIR}/libnode.so.#{LIBNODE_VERSION} 
     CMD
+    puts cmd
     system(cmd).should be_true
     system("LD_LIBRARY_PATH=#{LIBRARY_DIR} /tmp/#{c_file}").should be_true
   end
