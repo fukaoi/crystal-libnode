@@ -54,14 +54,21 @@ const char* checkReponseType(Local<Value> result) {
     type = "Function";
   } else if (result->IsNumber()) {
     type = "Number";
-  } else if (result->IsObject()) {
-    type = "Object";
   } else if (result->IsSymbol()) {
     type = "Symbol";
   } else if (result->IsNull()) {
     type = "Nil";
+  } else if (result->IsDate()) {
+    type = "Date";
+  } else if (result->IsRegExp()) {
+    type = "RegExp";
+  } else if (result->IsObject()) {
+    type = "Object";
+  } else if (result->IsUndefined()) {
+    type = "Undefined";
   } else {
-    type = "Other";
+    printf("Other\n");
+    assert(false);
   }
 
   // tuple.crystal_type = "String";
