@@ -27,6 +27,7 @@ int main(int argc, char const *argv[])
   node::Evaluate("0.00000001");
   node::Evaluate("undefined");
   node::Evaluate("");
+  node::Evaluate("throw new Error('throwing test in libnode_main.cc');");
   node::Deinitialize();
 
   return 0;
