@@ -4,15 +4,13 @@ void init(){
   node::Initialize("crytal-nodejs");
 }
 
-const char* eval(const char* js_code) {
+Tuple eval(const char* js_code) {
   Local<Value> result = node::Evaluate(js_code).ToLocalChecked();
-  const char* type = checkReponseType(result);
-  cout << type << endl;
   Local<String> str = result->ToString();
-  // cout << tuple.crystal_type << endl;
-  // cout << tuple.js_response << endl;
   String::Utf8Value strObj(str);
-  return toCrystalString(strObj);
+  crtuple.type = checkReponseType(result);
+  crtuple.response = toCrystalString(strObj);
+  return crtuple;
 }
 
 const char* evalResponseType(const char* str) {
@@ -69,9 +67,6 @@ const char* checkReponseType(Local<Value> result) {
     printf("Other\n");
     assert(false);
   }
-
-  // tuple.crystal_type = "String";
-  // tuple.js_response = "lskdklkl30030200202kokdkdkdkdkdkdkkd";
   return type;
 } 
 

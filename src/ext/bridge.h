@@ -11,19 +11,20 @@ using namespace std;
 using namespace v8;
 
 extern "C" {
+  typedef struct {
+    const char* type;
+    const char* response;
+  } Tuple;
+
   void init();
-  const char* eval(const char* js_code);
+  Tuple eval(const char* js_code);
   void callback();
   void deinit();
   const char* evalResponseType(const char* js_code);
+  Tuple crtuple;
 }
 
 const char* toCrystalString(const String::Utf8Value &value);
-
-typedef struct {
-  const char* crystal_type;
-  const char* js_response;
-} TupleCr;
 
 const char *checkReponseType(Local<Value> result);
 

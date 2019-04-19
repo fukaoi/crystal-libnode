@@ -1,6 +1,5 @@
 #include <stdio.h>
 #include <assert.h>
-#include "node.h"
 #include "node_lib.h"
 #include "bridge.h"
 
@@ -8,8 +7,7 @@ using namespace std;
 
 int main(int argc, char const *argv[]) {
   init();
-  eval("const a = 'c test program';console.log(a);");
-  // typed check;
+  //// typed check ////
   printf("\n###### Type check #####\n");
 
   printf("true | ==> %s\n", evalResponseType("true"));
@@ -30,6 +28,13 @@ int main(int argc, char const *argv[]) {
   printf("{'val':'hogehoge'} | ==> %s\n", evalResponseType("{val: 'hogehoge'}"));
   printf("{10,20,30,40} | ==> %s\n", evalResponseType("{10,20,30,40}"));
   printf("{'a','b','c','d','e','f'} | ==> %s\n", evalResponseType("{'a','b','c','d','e','f'}"));
+
+  //// evaluate ////
+  Tuple res;  
+  res = eval("const a = 1;a * 9999;");
+  printf("type:%s response:%s\n", res.type, res.response);
+  res = eval("const calc = (n) => {return n / 10};calc(5);");
+  printf("type:%s response:%s\n", res.type, res.response);
   callback();
   deinit();
   return 0;
