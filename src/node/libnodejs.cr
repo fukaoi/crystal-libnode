@@ -3,8 +3,14 @@
 )]
 # toodo: module Node
 lib LibNodeJs
+
+  struct Tuple
+    type : LibC::Char*
+    response : LibC::Char*
+  end
+
   fun init : Void
-  fun eval(code : LibC::Char*) : LibC::Char*
+  fun eval(code : LibC::Char*) : Tuple
   fun deinit : Void
   fun callback() : Void
 end
