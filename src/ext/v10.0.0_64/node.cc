@@ -4304,7 +4304,7 @@ MaybeLocal<Value> Evaluate(Environment* env, const std::string& js_code) {
     ReportException(env, try_catch);
     return MaybeLocal<Value>();
   }
-  return MaybeLocal<Value>(scope.Escape(script.ToLocalChecked()->Run()));
+ return MaybeLocal<Value>(scope.Escape(script.ToLocalChecked()->Run()));
 }
 
 bool ProcessEvents(UvLoopBehavior behavior) {
