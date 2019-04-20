@@ -4286,6 +4286,22 @@ int Deinitialize() {
   return exit_code;
 }
 
+void RunEventLoop(const std::function<void()>& callback,
+                  UvLoopBehavior behavior) {
+  if (_event_loop_running) {
+    return;  // TODO(luminosuslight): return error
+  }
+  bool more = false;
+  _event_loop_running = true;
+  request_stop = false;
+  do {
+    more = ProcessEvents(behavior);
+    callback();
+  } while (more && !request_stop);
+  request_stop = false;
+  _event_loop_running = false;
+}
+
 MaybeLocal<Value> Evaluate(const std::string& js_code) {
   return Evaluate(_environment, js_code);
 }

@@ -20,11 +20,10 @@ module Node
 
     def eval(source_code : String)
       res = LibNodeJs.eval(source_code)
-      p String.new(res.type)
-      p String.new(res.response)
-      "test"
+      # p String.new(res.type)
+      # p String.new(res.response)
       # LibNodeJs.callback
-      # String.new(res)
+      String.new(res.response)
     end
 
     def finalize
