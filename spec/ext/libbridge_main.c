@@ -31,10 +31,9 @@ int main(int argc, char const *argv[]) {
   printf("Throw exception | ==> %s\n", evalResponseType("try { \
           throw new Error('throwing test in libbridge_main.c'); \
         } catch(e) { \
-          console.log('RAISE_EXCEPTION'); \
-          console.log(e);}" \
+          console.log(e); \
+          __RAISE_EXCEPTION__;}" \
         ));
-  printf("Throw new Error | ==> %s\n", evalResponseType("throw new Error('aaaaa')")); 
   //// evaluate ////
   /* Tuple res;   */
   /* res = eval("const a = 1;a * 9999;"); */

@@ -19,10 +19,8 @@ const char* evalResponseType(const char* str) {
     const char* type = checkReponseType(result);
     return type;
   } else {
-    if (result->IsNull()) {
-      return "native error";
-    }
-    return "no match";
+    // printf("test");
+    return "NULL";
   } 
 }
 
