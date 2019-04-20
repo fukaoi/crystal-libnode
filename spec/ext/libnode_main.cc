@@ -7,6 +7,9 @@
 #include "node_lib.h"
 
 using namespace std;
+using namespace v8;
+
+
 
 int main(int argc, char const *argv[])
 {
@@ -28,6 +31,14 @@ int main(int argc, char const *argv[])
   node::Evaluate("undefined");
   node::Evaluate("");
   node::Evaluate("throw new Error('throwing test in libnode_main.cc');");
+  while (node::ProcessEvents()) { }
+  Local<Value> v;
+  if (node::Evaluate("'hogehoge'").ToLocal(&v)) {
+    String::Utf8Value strObj(v->ToString());
+    printf("### result ###");
+  } else {
+    printf("### no result!! ###");
+  }
   node::Deinitialize();
 
   return 0;
