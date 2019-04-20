@@ -14,9 +14,16 @@ Tuple eval(const char* js_code) {
 }
 
 const char* evalResponseType(const char* str) {
-  Local<Value> result = node::Evaluate(str).ToLocalChecked();
-  const char* type = checkReponseType(result);
-  return type;
+  Local<Value> result;
+  if (node::Evaluate(str).ToLocal(&result)) {
+    const char* type = checkReponseType(result);
+    return type;
+  } else {
+    if (result->IsNull()) {
+      return "native error";
+    }
+    return "no match";
+  } 
 }
 
 void callback() {

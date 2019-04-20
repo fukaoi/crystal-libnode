@@ -31,13 +31,17 @@ int main(int argc, char const *argv[])
   node::Evaluate("undefined");
   node::Evaluate("");
   node::Evaluate("throw new Error('throwing test in libnode_main.cc');");
-  while (node::ProcessEvents()) { }
+  // while (node::ProcessEvents()) { }
   Local<Value> v;
-  if (node::Evaluate("'hogehoge'").ToLocal(&v)) {
+  // if (node::Evaluate("'hogehoge'").ToLocal(&v)) {
+  if (node::Evaluate("throw new Error('fugafuga')").ToLocal(&v)) {
     String::Utf8Value strObj(v->ToString());
-    printf("### result ###");
+    cout << "### result ###" << endl;
   } else {
-    printf("### no result!! ###");
+    cout << "### No result ###" << endl;
+    // TryCatch try_catch;
+    // String::Utf8Value error(try_catch.Message());
+		// cerr << *error << endl;
   }
   node::Deinitialize();
 

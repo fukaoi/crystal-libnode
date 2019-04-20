@@ -34,14 +34,13 @@ int main(int argc, char const *argv[]) {
           console.log('RAISE_EXCEPTION'); \
           console.log(e);}" \
         ));
-
+  printf("Throw new Error | ==> %s\n", evalResponseType("throw new Error('aaaaa')")); 
   //// evaluate ////
-  Tuple res;  
-  res = eval("throw new Error('test');");
-  res = eval("const a = 1;a * 9999;");
-  printf("type:%s response:%s\n", res.type, res.response);
-  res = eval("const calc = (n) => {return n / 10};calc(5);");
-  printf("type:%s response:%s\n", res.type, res.response);
+  /* Tuple res;   */
+  /* res = eval("const a = 1;a * 9999;"); */
+  /* printf("type:%s response:%s\n", res.type, res.response); */
+  /* res = eval("const calc = (n) => {return n / 10};calc(5);"); */
+  /* printf("type:%s response:%s\n", res.type, res.response); */
   callback();
   deinit();
   return 0;
