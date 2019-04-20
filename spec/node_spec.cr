@@ -19,9 +19,9 @@ describe node = Node::Js.new do
     res.should eq "11"
   end
 
-  it "Throw exception" do
-    res = node.eval("throw new error('Raised exception in Node::Js');")
-  end
+  # it "Throw exception" do
+    # res = node.eval("throw new error('Raised exception in Node::Js');")
+  # end
 end
 
 describe Node::Npm do
