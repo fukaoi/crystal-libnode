@@ -4325,6 +4325,7 @@ MaybeLocal<Value> Evaluate(Environment* env, const std::string& js_code) {
   if (!script.ToLocalChecked()->Run().IsEmpty()) {
     cout << "Catch *********************" << endl;
     ReportException(env, try_catch);
+    printf(try_catch->Message());
     return MaybeLocal<Value>(try_catch.ToLocalChecked());
   }
 
