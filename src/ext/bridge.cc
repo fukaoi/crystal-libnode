@@ -68,6 +68,9 @@ const char* checkReponseType(Local<Value> result) {
     type = "Object";
   } else if (result->IsUndefined()) {
     type = "Undefined";
+  } else if (result->IsNativeError()) {
+    printf("EXEXEXEEXEXEE");
+    type = "Exception";
   } else {
     printf("Other\n");
     assert(false);

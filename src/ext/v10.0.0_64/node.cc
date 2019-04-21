@@ -4321,12 +4321,13 @@ MaybeLocal<Value> Evaluate(Environment* env, const std::string& js_code) {
     return MaybeLocal<Value>();
   }
 
-  // Local<Value> v;
-  // if (!script.ToLocalChecked()->Run().IsEmpty()) {
-    // cout << "Catch *********************" << endl;
-    // ReportException(env, try_catch);
+  Local<Value> v;
+  if (!script.ToLocalChecked()->Run().IsEmpty()) {
+    cout << "Catch *********************" << endl;
+    ReportException(env, try_catch);
+    env->ThrowError("isNativeErrorTest()");
     // return MaybeLocal<Value>();
-  // }
+  }
 
   return MaybeLocal<Value>(scope.Escape(script.ToLocalChecked()->Run()));
 }
