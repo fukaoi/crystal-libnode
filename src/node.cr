@@ -22,7 +22,7 @@ module Node
       res = LibNodeJs.eval(source_code)
       # p String.new(res.type)
       # p String.new(res.response)
-      # LibNodeJs.callback
+      LibNodeJs.callback
       String.new(res.response)
     end
 

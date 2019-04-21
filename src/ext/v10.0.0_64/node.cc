@@ -1379,7 +1379,7 @@ void AppendExceptionLine(Environment* env,
 static void ReportException(Environment* env,
                             Local<Value> er,
                             Local<Message> message) {
-  CHECK(!er.IsEmptj());
+  CHECK(!er.IsEmpty());
   CHECK(!message.IsEmpty());
   HandleScope scope(env->isolate());
 
@@ -4321,13 +4321,14 @@ MaybeLocal<Value> Evaluate(Environment* env, const std::string& js_code) {
     return MaybeLocal<Value>();
   }
 
-  Local<Value> v;
-  if (!script.ToLocalChecked()->Run().IsEmpty()) {
-    cout << "Catch *********************" << endl;
-    ReportException(env, try_catch);
-    printf(try_catch->Message());
-    return MaybeLocal<Value>(try_catch.ToLocalChecked());
-  }
+  // Local<Value> v;
+  // if (!script.ToLocalChecked()->Run().IsEmpty()) {
+    // cout << "Catch *********************" << endl;
+		// ReportException(env, try_catch);
+    // String::Utf8Value message(env->isolate(), try_catch);
+		// cout << message << endl;
+    // return MaybeLocal<Value>();
+  // }
 
   return MaybeLocal<Value>(scope.Escape(script.ToLocalChecked()->Run()));
 }

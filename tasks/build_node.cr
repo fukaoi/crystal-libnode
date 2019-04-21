@@ -12,7 +12,7 @@ class BuildNode < LuckyCli::Task
   def call
     git_clone_tag
     install_custom_node_npm
-    replace_path_innpm
+    replace_path_npm
     success("Node build done")
   rescue e : Exception
     failed(e.to_s)
@@ -44,7 +44,7 @@ class BuildNode < LuckyCli::Task
     FileUtils.cp("#{NODEJS_SOURCE_DIR}/node", "#{CUSTOM_NPM_DIR}/bin/")
   end
 
-  private def replace_path_innpm
+  private def replace_path_npm
     npm_path = "#{CUSTOM_NPM_DIR}/bin/npm"
     body = File.read(npm_path).gsub("/usr/bin/env node", "#{ENV["PWD"]}/#{CUSTOM_NPM_DIR}/bin/node")
     File.write(npm_path, body)
@@ -59,6 +59,15 @@ class BuildLibnode < BuildNode
     git_clone_tag
     copy_patch_files
     build_nodejs("--debug --shared") # create libnode.a shared object
+    copy_libnode
     success("Libnode build done")
+  end
+
+  private def copy_libnode
+    FileUtils.cp(
+      # "#{NODEJS_SOURCE_DIR}/out/Release/lib.target/libnode.so.#{LIBNODE_VERSION}",
+      "#{NODEJS_SOURCE_DIR}/out/Debug/lib.target/libnode.so.#{LIBNODE_VERSION}",
+      "#{LIBRARY_DIR}/libnode.so.#{LIBNODE_VERSION}"
+    )
   end
 end

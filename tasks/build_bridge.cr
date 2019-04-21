@@ -6,7 +6,6 @@ class BuildBridge < LuckyCli::Task
 
   def call
     mkdir_need_dir
-    copy_libnode
     build_bridge
     success("bridge program build done")
   rescue e : Exception
@@ -35,13 +34,5 @@ class BuildBridge < LuckyCli::Task
   private def mkdir_need_dir
     FileUtils.mkdir(LIBRARY_DIR) unless Dir.exists?(LIBRARY_DIR)
     FileUtils.mkdir("bin") unless Dir.exists?("bin")
-  end
-
-  private def copy_libnode
-    FileUtils.cp(
-      # "#{NODEJS_SOURCE_DIR}/out/Release/lib.target/libnode.so.#{LIBNODE_VERSION}",
-      "#{NODEJS_SOURCE_DIR}/out/Debug/lib.target/libnode.so.#{LIBNODE_VERSION}",
-      "#{LIBRARY_DIR}/libnode.so.#{LIBNODE_VERSION}"
-    )
   end
 end
