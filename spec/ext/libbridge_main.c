@@ -28,13 +28,15 @@ int main(int argc, char const *argv[]) {
   printf("{'val':'hogehoge'} | ==> %s\n", evalResponseType("{val: 'hogehoge'}"));
   printf("{10,20,30,40} | ==> %s\n", evalResponseType("{10,20,30,40}"));
   printf("{'a','b','c','d','e','f'} | ==> %s\n", evalResponseType("{'a','b','c','d','e','f'}"));
+  printf("'(empty)' | ==> %s\n", evalResponseType(""));
   printf("Throw exception | ==> %s\n", evalResponseType("try { \
           throw new Error('throwing test in libbridge_main.c'); \
-        } catch(e) { \
-          console.log(e);}" \
-        ));
-  //// evaluate ////
-  /* Tuple res;   */
+        } catch(e) {}"));
+  printf("Throw exception | ==> %s\n", evalResponseType("try { \
+          throw new Error('throwing test in libbridge_main.c'); \
+        } catch(e) {console.error(e);}"));
+
+   //// evaluate ////
   /* res = eval("const a = 1;a * 9999;"); */
   /* printf("type:%s response:%s\n", res.type, res.response); */
   /* res = eval("const calc = (n) => {return n / 10};calc(5);"); */
