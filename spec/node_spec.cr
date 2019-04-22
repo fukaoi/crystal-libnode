@@ -1,26 +1,61 @@
 require "./spec_helper"
 
 describe node = Node::Js.new do
-  it "Evaluate js code" do
-    node.eval("
-      const data = 1 + 1
-      console.log(data)
+  it "setTimeout" do
+    res = node.eval("
+      function main() {              
+        setTimeout(() => {console.log('Timeout');}, 1);
+      }
+      main();
     ")
   end
 
-  it "Evaluate return js code" do
+  it "Throw exception catch" do
     res = node.eval("
       const fn = (n) => {
-        const data = n + 1;
-        return data;
+        try {
+          if (n < 10) {
+            throw new Error('Too small number');
+          }
+          return true;
+        } catch(e) {
+          console.error(e);
+          return false;
+        }  
       }
-      fn(10);
+      fn(1);
     ")
-    res.should eq "11"
   end
 
-  it "Throw exception" do
-    res = node.eval("throw new Error('Raised exception in Node::Js');")
+  it "Throw exception catch. return string message" do
+    res = node.eval("
+      const fn = (n) => {
+        try {
+          if (n < 10) {
+            throw new Error('Too small number');
+          }
+          return true;
+        } catch(e) {
+          console.error(e);
+          return e.message;
+        }  
+      }
+      fn(1);
+    ")
+  end
+  
+
+  it "await/async" do
+    res = node.eval("
+      const calc = (n) => {
+        setTimeout((num) => { return num * 9}, 1);    
+      };              
+      function async main(n) {
+        const nn = await calc(n);
+        return nn + 10;
+      }
+      main(10);
+    ")
   end
 end
 
