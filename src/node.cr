@@ -19,7 +19,7 @@ module Node
     end
 
     def eval(source_code : String)
-      res = LibNodeJs.eval(source_code)
+      res = LibNodeJs.eval(escate_trycatch(source_code))
       # p String.new(res.type)
       # p String.new(res.response)
       LibNodeJs.callback
@@ -28,6 +28,10 @@ module Node
 
     def finalize
       LibNodeJs.deinit
+    end
+    
+    private def escate_trycatch(source_code : String)
+      "try { #{source_code} } catch(e) { console.error(e);__ESCAPE_TRYCATCH__}" 
     end
   end
 
