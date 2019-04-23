@@ -5,23 +5,23 @@ void init(){
 }
 
 Tuple eval(const char* js_code) {
-  Local<Value> result = node::Evaluate(js_code).ToLocalChecked();
-  Local<String> str = result->ToString();
-  String::Utf8Value strObj(str);
-  crtuple.type = checkReponseType(result);
-  crtuple.response = toCrystalString(strObj);
+  Local<Value> result;
+  if (node::Evaluate(js_code).ToLocal(&result)) {
+    Local<String> str = result->ToString();
+    String::Utf8Value strObj(str);
+    crtuple.type = checkReponseType(result);
+    crtuple.response = toCrystalString(strObj);
+  } 
   return crtuple;
 }
 
 const char* evalResponseType(const char* str) {
   Local<Value> result;
+  const char* type  = "Undefined";
   if (node::Evaluate(str).ToLocal(&result)) {
-    const char* type = checkReponseType(result);
-    return type;
-  } else {
-    // printf("test");
-    return "NULL";
+    type = checkReponseType(result);
   } 
+  return type;
 }
 
 void callback() {
@@ -40,7 +40,6 @@ const char* toCrystalString(const String::Utf8Value &value) {
 }
 
 const char* checkReponseType(Local<Value> result) {
-  // TupleCr tuple;
   const char* type;
   if (result->IsBoolean()) {
     type = "Boolean";
@@ -69,11 +68,9 @@ const char* checkReponseType(Local<Value> result) {
   } else if (result->IsUndefined()) {
     type = "Undefined";
   } else if (result->IsNativeError()) {
-    printf("EXEXEXEEXEXEE");
     type = "Exception";
   } else {
-    printf("Other\n");
-    assert(false);
+    type = "Other";
   }
   return type;
 } 
