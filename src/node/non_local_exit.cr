@@ -2,12 +2,14 @@ module Node::NonLocalExit
   extend self
 
   def return(result : String)
-    "throw new Error(JSON.parse(JSON.stringify(return: \"#{result}\")))"
+    <<-CMD
+    throw new Error(JSON.parse(JSON.stringify(return: '#{result}')))
+    CMD
   end
 
   def surround(source : String)
     <<-CMD
-    "try {
+    try {
       #{source}
     } catch(tag) {
       if (tag.return == undefined) {
@@ -16,7 +18,7 @@ module Node::NonLocalExit
       }     
       console.log('try catch: result');
       return tag.result;
-    }"
+    }
     CMD
   end
 end
