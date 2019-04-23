@@ -1,6 +1,8 @@
 module Node::NonLocalExit
+  extend self
+
   def return(result : String)
-    "throw new Error(JSON.parse(JSON.stringify(return: {#{result}})))"
+    "throw new Error(JSON.parse(JSON.stringify(return: \"#{result}\")))"
   end
 
   def surround(source : String)
