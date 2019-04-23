@@ -3,7 +3,7 @@ module Node::NonLocalExit
 
   def return(result : String)
     <<-CMD
-    throw new Error(JSON.parse(JSON.stringify(result: '#{result}')))
+      throw result: '#{result}')
     CMD
   end
 
@@ -11,27 +11,13 @@ module Node::NonLocalExit
     <<-CMD
     try {
       #{source}
-    } catch(tag) {
-      if (tag.result !== undefined) {
-        console.log('try catch: Exception');
-        return tag;
+    } catch(e) {
+      if (e instanceof Error) {
+        console.log('Exception !!');
+        return {error: e};
       }     
-      console.log('try catch: result');
-      return tag.result;
-    }
-    CMD
-  end
-  def surround(source : String)
-    <<-CMD
-    try {
-      #{source}
-    } catch(tag) {
-      if (tag.result !== undefined) {
-        console.log('try catch: Exception');
-        return tag;
-      }     
-      console.log('try catch: result');
-      return tag.result;
+      console.log('Result !!');
+      return e.result;
     }
     CMD
   end

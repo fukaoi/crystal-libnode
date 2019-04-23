@@ -40,60 +40,35 @@ describe node = Node::Js.new do
   end
 
   it "setTimeout" do
-    res = node.eval("
+    res = node.eval(
+    <<-CMD  
       function main() {              
         setTimeout(() => {console.log('Timeout');}, 1);
       }
       main();
-    ")
+    CMD
+    )
   end
 
-  it "Throw exception catch" do
-    res = node.eval("
-      const fn = (n) => {
-        try {
-          if (n < 10) {
-            throw new Error('Too small number');
-          }
-          return true;
-        } catch(e) {
-          return false;
-        }  
-      }
-      fn(1);
-    ")
-  end
-
-  it "Throw exception catch. return string message" do
-    res = node.eval("
-      const fn = (n) => {
-        try {
-          if (n < 10) {
-            throw new Error('Too small number');
-          }
-          return true;
-        } catch(e) {
-          console.error(e);
-          return e.message;
-        }  
-      }
-      fn(1);
-    ")
-  end
-  
 
   it "await/async" do
-    res = node.eval("
-      const calc = (n) => {
-        setTimeout((num) => { return num * 9}, 1);    
-      };              
-      async function main(n) {
-        const nn = await calc(n);
-        return nn + 10;
+    res = node.eval(
+    <<-CMD  
+      function asyncFunction() {
+        return new Promise(function (resolve, reject) {
+        setTimeout(function () {
+            resolve('Async Hello world');
+        }, 2000); // 2sec wait;
+      });
       }
-      main(10);
-    ")
-    p res
+
+      asyncFunction().then(function (value) {
+        console.log(value);    
+      }).catch(function (error) {
+        console.log(error);
+      });
+    CMD
+    )
   end
 end
 
