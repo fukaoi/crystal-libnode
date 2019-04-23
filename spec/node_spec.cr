@@ -7,11 +7,11 @@ describe node = Node::Js.new do
     function main() {
       try {
         throw {result: "test"}
-      } catch(tag) {
-        if (tag.result === undefined) {
-          return {error: tag};
+      } catch(e) {
+        if (e instanceof Error) {
+          return {error: e};
         }
-        return tag.result;
+        return e.result;
       }
     }
     main()
@@ -26,11 +26,11 @@ describe node = Node::Js.new do
     function main() {
       try {
         throw new Error('raise error!')
-      } catch(tag) {
-        if (tag.result === undefined) {
-          return {error: tag};
+      } catch(e) {
+        if (e instanceof Error) {
+          return {error: e};
         }
-        return tag.result;
+        return e.result;
       }
     }
     main()
@@ -87,12 +87,13 @@ describe node = Node::Js.new do
       const calc = (n) => {
         setTimeout((num) => { return num * 9}, 1);    
       };              
-      function async main(n) {
+      async function main(n) {
         const nn = await calc(n);
         return nn + 10;
       }
       main(10);
     ")
+    p res
   end
 end
 
