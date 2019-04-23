@@ -1,6 +1,44 @@
 require "./spec_helper"
 
 describe node = Node::Js.new do
+  it "Non local exit success version" do
+    res = node.eval(
+    <<-CMD
+    function main() {
+      try {
+        throw {result: "test"}
+      } catch(tag) {
+        if (tag.result === undefined) {
+          return {error: tag};
+        }
+        return tag.result;
+      }
+    }
+    main()
+    CMD
+    )
+    res.should eq "test"
+  end
+
+  it "Non local exit error version" do
+    res = node.eval(
+    <<-CMD
+    function main() {
+      try {
+        throw new Error('raise error!')
+      } catch(tag) {
+        if (tag.result === undefined) {
+          return {error: tag};
+        }
+        return tag.result;
+      }
+    }
+    main()
+    CMD
+    )
+    res.should eq "[object Object]"
+  end
+
   it "setTimeout" do
     res = node.eval("
       function main() {              
@@ -19,7 +57,6 @@ describe node = Node::Js.new do
           }
           return true;
         } catch(e) {
-          console.error(e);
           return false;
         }  
       }

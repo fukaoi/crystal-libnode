@@ -3,7 +3,7 @@ require "../spec_helper"
 describe node = Node::Js.new do
   it "Call `return` method" do
     expect = <<-CMD
-    throw new Error(JSON.parse(JSON.stringify(return: 'true')))
+    throw new Error(JSON.parse(JSON.stringify(result: 'true')))
     CMD
     res = Node::NonLocalExit.return("true") 
     res.should eq expect
@@ -14,7 +14,7 @@ describe node = Node::Js.new do
     try {
       return true
     } catch(tag) {
-      if (tag.return == undefined) {
+      if (tag.result == undefined) {
         console.log('try catch: Exception');
         return tag;
       }     
