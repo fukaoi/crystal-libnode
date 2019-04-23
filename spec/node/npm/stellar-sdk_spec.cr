@@ -1,4 +1,4 @@
-require "../npm_spec.cr"
+require "./npm_spec_helper.cr"
 
 describe npm("stellar-sdk") do
   it "Get transaction data" do

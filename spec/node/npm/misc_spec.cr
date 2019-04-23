@@ -1,4 +1,4 @@
-require "../npm_spec.cr"
+require "./npm_spec_helper.cr"
 
 describe npm("bitcoin-core") do
   it "Get transaction data" do

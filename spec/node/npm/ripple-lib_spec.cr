@@ -1,4 +1,4 @@
-require "../npm_spec.cr"
+require "./npm_spec_helper.cr"
 
 describe npm("ripple-lib") do
   it "Get account info" do
@@ -14,15 +14,13 @@ describe npm("ripple-lib") do
     CMD
     )
 
-    node.eval(
+    res = node.eval(
       <<-CMD
       api.connect().then(() => {
         const myAddress = 'rJumr5e1HwiuV543H7bqixhtFreChWTaHH';
-        console.log('getting account info for', myAddress);
         return api.getAccountInfo(myAddress);
       }).then(info => {
         console.log(info)
-        console.log('getAccountInfo done')
       }).then(() =>{
         return api.disconnect()
       }).then(() => {
@@ -30,5 +28,6 @@ describe npm("ripple-lib") do
       }).catch(console.error)
     CMD
     )
+    p res
   end
 end
