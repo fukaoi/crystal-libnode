@@ -29,10 +29,17 @@ module Node
 		def parse
 			io = IO::Memory.new
 			Process.run("cat #{@file}", shell: true, output: io)
-			data = io.to_s.chomp
-			# JSON.parse(data)[SendType::Result.to_s]
-			JSON.parse(data)[SendType::Error.to_s]
+      data = JSON.parse(io.to_s.chomp)
+      if data[SendType::Result.to_s]?
+			  data[SendType::Result.to_s]
+      else
+			  data[SendType::Error.to_s]
+        #todo : throw exception
+      end
 		end
+
+    def replace(source_code : String)
+    end
 
     private def to_pipe(json_str : String, key : SendType)
       <<-CMD
