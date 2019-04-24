@@ -32,7 +32,8 @@ int main(int argc, char const *argv[])
   node::Evaluate("");
   node::Evaluate("throw new Error('throwing test in libnode_main.cc');");
   while (node::ProcessEvents()) { }
+  
+  // many call cause `signal11`
   node::Deinitialize();
-
   return 0;
 }
