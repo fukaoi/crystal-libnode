@@ -1,32 +1,51 @@
+require "io"
+require "json"
+
 module Node
   class Pipe
-    def initialize(@mkfifo_path : String = "/tmp")
-      create_mkfifo
+		enum SendType
+			Result
+			Error
+		end
+
+    def initialize(
+			mkfifo_file : String = "cr-node-#{Random.rand(10 ** 10)}",
+			mkfifo_path : String = "/tmp",
+			@timeout : Int32 = 1 # 0.001sec
+		)
+			@file = "#{mkfifo_path}/#{mkfifo_file}"
+			create_mkfifo
     end
 
     def return_to_cr(result : String)
-      to_pipe(result, "result")
+			to_pipe(result, SendType::Result)
     end
 
     def throw_to_cr(exception : String)
-      to_pipe(exception, "error")
+      to_pipe(exception, SendType::Error)
     end
 
-    private def to_pipe(json_str : String, key : String)
+		def parse
+			io = IO::Memory.new
+			Process.run("cat #{@file}", shell: true, output: io)
+			data = io.to_s.chomp
+			JSON.parse(data)[SendType::Result.to_s]
+		end
+
+    private def to_pipe(json_str : String, key : SendType)
       <<-CMD
-        const exec = require('child_process').exec;
-        const json = JSON.stringify(JSON.stringify({#{key}: #{json_str}}));
-        exec("echo " + json + " > ", function(err, stdout, stderr){
-          console.err(err)
-        });
+      const exec = require('child_process').exec;
+      const json = JSON.stringify(JSON.stringify({#{key}: #{json_str}}));
+      exec(`echo ${json} > #{@file}`, {timeout: #{@timeout}}, ()=> process.exit())
       CMD
     end
 
     private def create_mkfifo
-      random_num = Random.rand(10 ** 10)
-      unless system("mkfifo #{@mkfifo_path}/cr-node-#{random_num}")
-        raise CrNodeException.new("Failed create mkfifo")
+			unless File.exists?(@file) 
+      	unless system("mkfifo #{@file}")
+        	raise CrNodeException.new("Failed create mkfifo")
+     		end
       end
-    end
+		end
   end
 end
