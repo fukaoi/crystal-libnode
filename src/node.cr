@@ -20,8 +20,6 @@ module Node
 
     def eval(source_code : String)
       res = LibNodeJs.eval(source_code)
-      puts("\n@type: #{String.new(res.type)}")
-      puts("\n@response: #{String.new(res.response)}")
       LibNodeJs.callback
       String.new(res.response)
     end

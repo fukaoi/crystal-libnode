@@ -42,9 +42,6 @@ int main(int argc, char const *argv[]) {
   res2 = eval("const calc = (n) => {return n / 10};calc(5);");
   printf("type2:%s response2:%s\n", res2.type, res2.response);
 
-  Tuple res3;
-  res3 = eval("throw new Error('throwing for eval method')");
-  printf("type3:%s response3:%s\n", res3.type, res3.response);
   callback();
   deinit();
   return 0;
