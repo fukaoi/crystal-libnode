@@ -36,7 +36,12 @@ module Node
       <<-CMD
       const exec = require('child_process').exec;
       const json = JSON.stringify(JSON.stringify({#{key}: #{json_str}}));
-      exec(`echo ${json} > #{@file}`, {timeout: #{@timeout}}, ()=> process.exit())
+      exec(`echo ${json} > #{@file}`, {timeout: #{@timeout}}, 
+      (err, out)=>{ 
+        console.error('[to_pipe] ERR:', err)
+        console.log('[to_pipe] OUT:', out)
+        process.exit()
+      })
       CMD
     end
 
