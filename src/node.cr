@@ -24,8 +24,15 @@ module Node
       String.new(res.response)
     end
 
+    def evalSync(source_code : String) 
+      res = LibNodeJs.eval(source_code)
+      LibNodeJs.callback
+    end
+
     def finalize
-      LibNodeJs.deinit
+      #todo :once 
+      puts "@@@@@@@@@@@@@@ファイナライズ"
+      # LibNodeJs.deinit
     end
   end
 
