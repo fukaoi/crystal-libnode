@@ -33,6 +33,10 @@ module Node
     extend self
     CPULS_SOURCE_DIR = "src/ext"
 
+    def init(dir : String = "/tmp") 
+      raise "Failed npm init" unless system("cd #{dir};#{Node::Npm.path} init --yes > /dev/null")
+    end
+
     def is_installed?(package_name : String) : Bool
       status = false
       status |= File.directory?("#{ENV["PWD"]}/node_modules/#{package_name}")
