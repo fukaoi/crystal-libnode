@@ -3,7 +3,7 @@ require "./spec_helper"
 describe node = Node::Js.new do
   it "Non local exit success version" do
     res = node.eval(
-    <<-CMD
+      <<-CMD
     function main() {
       try {
         throw {result: "test"}
@@ -22,7 +22,7 @@ describe node = Node::Js.new do
 
   it "Non local exit error version" do
     res = node.eval(
-    <<-CMD
+      <<-CMD
     function main() {
       try {
         throw new Error('raise error!')
@@ -41,7 +41,7 @@ describe node = Node::Js.new do
 
   it "setTimeout" do
     res = node.eval(
-    <<-CMD  
+      <<-CMD
       function main() {              
         setTimeout(() => {console.log('Timeout');}, 1);
       }
@@ -50,10 +50,9 @@ describe node = Node::Js.new do
     )
   end
 
-
   it "await/async" do
     res = node.eval(
-    <<-CMD  
+      <<-CMD
       function asyncFunction() {
         return new Promise(function (resolve, reject) {
         setTimeout(function () {

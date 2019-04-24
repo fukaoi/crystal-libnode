@@ -21,4 +21,3 @@ describe file_name do
     system("LD_LIBRARY_PATH=#{LIBRARY_DIR} /tmp/#{file_name}").should be_true
   end
 end
-

@@ -1,4 +1,4 @@
 module Node
-  class Exception < Exception
+  class CrNodeException < Exception
   end
 end
