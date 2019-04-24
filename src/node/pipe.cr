@@ -22,14 +22,16 @@ module Node
     end
 
     def throw_to_cr(exception : String)
-      to_pipe(exception, SendType::Error)
+      ex = "#{exception}.message"
+      to_pipe(ex, SendType::Error)
     end
 
 		def parse
 			io = IO::Memory.new
 			Process.run("cat #{@file}", shell: true, output: io)
 			data = io.to_s.chomp
-			JSON.parse(data)[SendType::Result.to_s]
+			# JSON.parse(data)[SendType::Result.to_s]
+			JSON.parse(data)[SendType::Error.to_s]
 		end
 
     private def to_pipe(json_str : String, key : SendType)

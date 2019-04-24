@@ -61,31 +61,28 @@ describe Node::Pipe do
     end 
     # ----
     res = pipe.parse
+    puts "\n # receive_data: #{res}\n"
     res["data"].should eq "dummy"
-    
   end
 
-  # it "Execute throw_to_cr in jscode" do
-    # pipe = Node::Pipe.new("cr-node-spec")
-    # p pipe.parse
- 
-    # # ---- mkfifo blocking command
-    # spawn do
-      # js = Node::Js.new
-      # code = <<-CMD
-      # function main() {
-        # try {
-          # throw new Error('JS spec !!')
-        # } catch(e) {               // <- catch a param
-      # #{pipe.throw_to_cr("e")} // need to same value of catch a param
-        # }
-      # }
+  it "Execute throw_to_cr in jscode" do
+    pipe = Node::Pipe.new("cr-node-spec")
 
-      # main()
-      # CMD
-      # p js.eval(code)
-    # end
-    # Fiber.yield
-    # # ----
-  # end
+    Process.fork do
+      js = Node::Js.new
+      code = <<-CMD
+      function main() {
+        try {
+          throw new Error('JS spec !!')
+        } catch(e) {               
+          #{pipe.throw_to_cr("e")}
+        }
+      }
+      main()
+      CMD
+      js.eval(code)
+    end
+    res = pipe.parse
+    puts "\n # receive_data: #{res}\n"
+ end
 end
