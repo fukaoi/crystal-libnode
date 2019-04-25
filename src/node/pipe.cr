@@ -38,7 +38,7 @@ module Node
       end
 		end
 
-    def replace(source_code : String)
+    def replace_exitcode(source_code : String)
     end
 
     private def to_pipe(json_str : String, key : SendType)
