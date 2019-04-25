@@ -2,20 +2,32 @@ require "./node/*"
 
 module Node
   extend self
-  @@v8_initialize = false
 
-  def set_v8_status(status : Bool) : Void
+  @@v8_initialize = false
+  @@v8_finalyze = false
+
+  def v8_initialize=(status)
     @@v8_initialize = status
   end
 
-  def get_v8_status? : Bool
-    @@v8_initialize
+  def v8_initialize?
+    @@v8_initialize 
+  end
+
+  def v8_finalyze=(status)
+    @@v8_finalyze = status
+  end
+
+  def v8_finalyze?
+    @@v8_finalyze 
   end
 
   class Js
     def initialize
-      LibNodeJs.init unless Node.get_v8_status?
-      Node.set_v8_status(true)
+      unless Node.v8_initialize?
+        LibNodeJs.init 
+        Node.v8_initialize = true
+      end
     end
 
     def eval(source_code : String)
@@ -29,10 +41,19 @@ module Node
       LibNodeJs.callback
     end
 
+    def run(source_file_path : Stirng)
+
+    end
+    
+    def runSync(source_file_path : Stirng)
+
+    end
+
     def finalize
-      #todo :once 
-      puts "@@@@@@@@@@@@@@ファイナライズ"
-      # LibNodeJs.deinit
+      unless Node.v8_finalyze?
+        LibNodeJs.deinit
+        Node.v8_finalyze = true
+      end
     end
   end
 
